@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gestao-modulo-poo-com-banco.ConsoleApp", "gestao-modulo-poo-com-banco.ConsoleApp\gestao-modulo-poo-com-banco.ConsoleApp.csproj", "{057950C9-BB25-4E02-9ED9-91F2C15A58FD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{057950C9-BB25-4E02-9ED9-91F2C15A58FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{057950C9-BB25-4E02-9ED9-91F2C15A58FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{057950C9-BB25-4E02-9ED9-91F2C15A58FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{057950C9-BB25-4E02-9ED9-91F2C15A58FD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ABB1F64E-7730-441E-B083-F0750DFA5543}
+	EndGlobalSection
+EndGlobal
