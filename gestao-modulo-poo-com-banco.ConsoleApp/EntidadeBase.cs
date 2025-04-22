@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace gestao_modulo_poo_com_banco.ConsoleApp
 {
-    class EntidadeBase
+    public abstract class EntidadeBase
     {
+        public int Id { get; set; }
     }
 }

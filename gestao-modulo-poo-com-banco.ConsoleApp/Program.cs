@@ -4,7 +4,9 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            var repoFuncionario = new RepositorioFuncionario("funcionarios.txt");
+            var telaFuncionario = new TelaFuncionario(repoFuncionario);
+            telaFuncionario.MostrarMenu();
         }
     }
 }
