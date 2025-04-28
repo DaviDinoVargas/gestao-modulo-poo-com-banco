@@ -1,90 +1,94 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace gestao_modulo_poo_com_banco.ConsoleApp
 {
-    public abstract class TelaBase<T> where T : EntidadeBase, new()
+    public abstract class TelaBase<T> where T : EntidadeBase
     {
         protected RepositorioBase<T> repositorio;
 
-        public TelaBase(RepositorioBase<T> repositorio)
+        public TelaBase(RepositorioBase<T> repositorioBase)
         {
-            this.repositorio = repositorio;
+            this.repositorio = repositorioBase;
         }
 
-        public void MostrarMenu()
+        public void Inserir()
         {
-            string opcao;
-            do
+            Console.Clear();
+            Console.WriteLine($"--- Inserir {typeof(T).Name} ---\n");
+
+            T entidade = ObterEntidade();
+            repositorio.Inserir(entidade);
+
+            Console.WriteLine("\nRegistro inserido com sucesso!");
+            Console.ReadKey();
+        }
+
+        public void Editar()
+        {
+            Console.Clear();
+            Console.WriteLine($"--- Editar {typeof(T).Name} ---\n");
+
+            Visualizar();
+
+            Console.Write("\nDigite o ID para editar: ");
+            if (int.TryParse(Console.ReadLine(), out int id))
             {
-                Console.Clear();
-                Console.WriteLine($"Cadastro de {typeof(T).Name}s");
-                Console.WriteLine("1 - Inserir");
-                Console.WriteLine("2 - Editar");
-                Console.WriteLine("3 - Excluir");
-                Console.WriteLine("4 - Visualizar");
-                Console.WriteLine("0 - Sair");
-                Console.Write("Opção: ");
-                opcao = Console.ReadLine();
-
-                switch (opcao)
-                {
-                    case "1": Inserir(); break;
-                    case "2": Editar(); break;
-                    case "3": Excluir(); break;
-                    case "4": Visualizar(); break;
-                }
-
-                Console.WriteLine("\nPressione ENTER para continuar...");
-                Console.ReadLine();
-            } while (opcao != "0");
-        }
-
-        protected abstract T ObterRegistro();
-
-        protected virtual void Inserir()
-        {
-            T registro = ObterRegistro();
-            repositorio.Inserir(registro);
-            Console.WriteLine("Registro inserido com sucesso!");
-        }
-
-        protected virtual void Editar()
-        {
-            Console.Write("Digite o ID para editar: ");
-            int id = int.Parse(Console.ReadLine());
-
-            T registro = ObterRegistro();
-            if (repositorio.Editar(id, registro))
-                Console.WriteLine("Registro editado com sucesso!");
+                T entidade = ObterEntidade();
+                if (repositorio.Editar(id, entidade))
+                    Console.WriteLine("\nRegistro editado com sucesso!");
+                else
+                    Console.WriteLine("\nID não encontrado.");
+            }
             else
-                Console.WriteLine("ID não encontrado.");
+            {
+                Console.WriteLine("\nID inválido!");
+            }
+
+            Console.ReadKey();
         }
 
-        protected virtual void Excluir()
+        public void Excluir()
         {
-            Console.Write("Digite o ID para excluir: ");
-            int id = int.Parse(Console.ReadLine());
+            Console.Clear();
+            Console.WriteLine($"--- Excluir {typeof(T).Name} ---\n");
 
-            if (repositorio.Excluir(id))
-                Console.WriteLine("Registro excluído com sucesso!");
+            Visualizar();
+
+            Console.Write("\nDigite o ID para excluir: ");
+            if (int.TryParse(Console.ReadLine(), out int id))
+            {
+                if (repositorio.Excluir(id))
+                    Console.WriteLine("\nRegistro excluído com sucesso!");
+                else
+                    Console.WriteLine("\nID não encontrado.");
+            }
             else
-                Console.WriteLine("ID não encontrado.");
+            {
+                Console.WriteLine("\nID inválido!");
+            }
+
+            Console.ReadKey();
         }
 
-        protected virtual void Visualizar()
+        public void Visualizar()
         {
+            Console.Clear();
+            Console.WriteLine($"--- Visualizar {typeof(T).Name} ---\n");
+
             T[] registros = repositorio.SelecionarTodos();
+            if (registros.Length == 0)
+            {
+                Console.WriteLine("Nenhum registro encontrado.");
+            }
+            else
+            {
+                MostrarTabela(registros);
+            }
 
-            Console.WriteLine("\n--- Lista de Registros ---\n");
-
-            foreach (var item in registros)
-                MostrarRegistro(item);
+            Console.ReadKey();
         }
 
-        protected abstract void MostrarRegistro(T registro);
+        protected abstract T ObterEntidade();
+        protected abstract void MostrarTabela(T[] registros);
     }
 }

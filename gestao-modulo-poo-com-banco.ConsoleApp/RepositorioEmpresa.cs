@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
-namespace gestao_modulo_poo_com_banco.ConsoleApp.Funcionarios
+namespace gestao_modulo_poo_com_banco.ConsoleApp.Empresas
 {
-    public class RepositorioFuncionario : RepositorioBase<Funcionario>
+    public class RepositorioEmpresa : RepositorioBase<Empresa>
     {
         private int contador;
 
-        public RepositorioFuncionario()
-            : base("Funcionarios/funcionarios.json")
+        public RepositorioEmpresa()
+            : base("Empresas/empresas.json")
         {
         }
 
@@ -18,20 +18,19 @@ namespace gestao_modulo_poo_com_banco.ConsoleApp.Funcionarios
         {
             if (File.Exists(caminhoArquivo))
             {
-              
+ 
                 string json = File.ReadAllText(caminhoArquivo);
 
-               
+
                 if (!string.IsNullOrWhiteSpace(json))
                 {
-                    var funcionarios = JsonSerializer.Deserialize<List<Funcionario>>(json);
+                    var empresas = JsonSerializer.Deserialize<List<Empresa>>(json);
 
-  
-                    if (funcionarios != null)
+                    if (empresas != null)
                     {
-                        foreach (var funcionario in funcionarios)
+                        foreach (var empresa in empresas)
                         {
-                            registros[contador++] = funcionario;
+                            registros[contador++] = empresa;
                         }
                     }
                 }
@@ -40,7 +39,7 @@ namespace gestao_modulo_poo_com_banco.ConsoleApp.Funcionarios
 
         protected override void SalvarNoArquivo()
         {
-
+         
             var diretorio = Path.GetDirectoryName(caminhoArquivo);
             if (!Directory.Exists(diretorio))
             {
@@ -49,6 +48,7 @@ namespace gestao_modulo_poo_com_banco.ConsoleApp.Funcionarios
 
             var json = JsonSerializer.Serialize(registros, new JsonSerializerOptions { WriteIndented = true });
 
+       
             File.WriteAllText(caminhoArquivo, json);
         }
     }
