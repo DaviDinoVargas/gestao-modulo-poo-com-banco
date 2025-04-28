@@ -5,8 +5,6 @@
         public string Nome { get; set; }
         public string CNPJ { get; set; }
 
-        public Empresa() { }
-
         public Empresa(string nome, string cnpj)
         {
             Nome = nome;
